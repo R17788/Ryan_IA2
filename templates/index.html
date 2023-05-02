@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+{% for item in data %}
+    <br>{{ item['strTrack'] }}<br>
+    <br>{{ item['strArtist'] }}<br>
+    <br>{{ item['strAlbum'] }}<br>
+    <img src="{{item['strTrackThumb']}}" alt="" style="width: 500px">
+
+
+
+{% endfor %}
+
+
+{% endblock %}

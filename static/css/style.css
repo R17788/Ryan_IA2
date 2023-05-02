@@ -1,0 +1,81 @@
+body{
+    background-color: #181B21;
+    color: #EAEBEE;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+input[type=text], input[type=password], input[type=studentID] {
+    width: 100%;
+    padding: 7px;
+    margin-right: 25px;
+    border: none;
+    color: #EAEBEE;
+    background: #3D474E;
+}
+
+footer{
+    text-align: center;
+    width: 100%;
+    color: #EAEBEE;
+    background-color: #5C5537;
+    margin-top: auto;
+}
+
+nav{
+    background-color: #6B7F8A;
+    text-decoration: none;
+    color: #EAEBEE;
+    overflow: hidden;
+}
+
+.nav-button{
+    background-color: #6B7F8A;
+    text-decoration: none;
+    color: #EAEBEE;
+    font-size: 25px;
+}
+
+.nav-button:hover{
+    background-color: #3D474E;
+    color: #EAEBEE;
+    text-decoration: none;
+    border-radius: 50px;
+}
+
+.background{
+    background-color: #6B7F8A;
+}
+
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.height-100{
+    padding-top: 18%;
+}
+
+.title{
+    color: #EAEBEE;
+    font-size: 300%;
+}
+
+.submit{
+    padding: 5%;
+    margin-bottom: 2%;
+    font-size: 150%;
+    color: #EAEBEE;
+    background-color: #6B7F8A;
+    border: none;
+    border-radius: 15px;
+}
+
+.submit:hover{
+    color: #EAEBEE;
+    background-color: #3D474E;
+    text-decoration: none;
+}
+
