@@ -7,6 +7,11 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
     <link rel="stylesheet" href="static/css/style.css">
+
+    <form name="LoginInformation" action="{{url_for('login')}}" method="post">
+
+    {{ form.hidden_tag()}}
+    {{ form.csrf_token }}
     <nav>
         <img src="static/images/logo.png" class="img-fluid pl-2" style="height: 100px;">
         <span class="title align-middle pl-2"> CROWDS 4 DJ'S </span>
@@ -20,15 +25,25 @@
             <div class="col-sm-2"></div>
             <div class="col-sm-8 background rounded align-middle center">
 
+
             <h2 class="pt-2">Login:</h2>
                 <div class="row pl-4 pt-3 text-left">
                     <h3>Username:</h3>
-                    <input type="text">
+                    {{form.username(type=username)}}
+                    {% for error in form.username.errors %}
+                        <span class="error-message">{{ error }}</span>
+                    {% endfor %}
                 </div>
+
+
                 <div class="row pl-4 pt-3 pb-4 text-left">
                     <h3>Password:</h3>
-                    <input type="password">
+                    {{form.password(type=password)}}
+                    {% for error in form.password.errors %}
+                        <span class="error-message">{{ error }}</span>
+                    {% endfor %}
                 </div>
+
 
             </div>
             <div class="col-sm-2"></div>
@@ -39,8 +54,9 @@
         <div class="row mt-5">
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
-                <a class="submit " href="{{url_for('index')}}">SUBMIT</a>
-
+            <form method="post">
+                <input type="submit" value="Submit">
+            </form>
             </div>
             <div class="col-sm-2"></div>
         </div>

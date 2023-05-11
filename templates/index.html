@@ -2,10 +2,23 @@
 {% block content %}
 
 {% for item in data %}
-    <br>{{ item['strTrack'] }}<br>
-    <br>{{ item['strArtist'] }}<br>
-    <br>{{ item['strAlbum'] }}<br>
-    <img src="{{item['strTrackThumb']}}" alt="" style="width: 500px">
+    <div class="row">
+        <div class="col-4">
+            <img src="{{item['strTrackThumb']}}" class="img-fluid">
+        </div>
+        <div class="col-4">
+            <div class="row">
+                <br>Track Name: {{ item['strTrack'] }}<br>
+            </div>
+            <div class="row">
+                <br>Artist: {{ item['strArtist'] }}<br>
+            </div>
+            <div class="row">
+                <br>Album: {{ item['strAlbum'] }}<br>
+            </div>
+        </div>
+    </div>
+
 
 
 

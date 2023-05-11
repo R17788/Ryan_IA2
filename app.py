@@ -4,6 +4,8 @@ import requests
 from flask import Flask, render_template, request, url_for, flash, redirect, abort, session
 from forms import LoginInformation
 
+connection = sqlite3.connect('database/IA2_Database.db', check_same_thread=False)
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'  # the secret key should be a long random string for safety
@@ -31,18 +33,32 @@ apikey = "523532"
 
 @app.route('/', methods=methods)
 def login():
-    # form = LoginInformation
-    # username = request.form.get('username')
-    # password = request.form.get('password')
-    # print(username)
-    # print(password)
-    # usernameDB = ''
-    # passwordDB = ''
-    # if form.validate_on_submit():
-    #     if username == usernameDB and password == passwordDB:
-    #         return redirect('index.html')
+    form = LoginInformation()
+    if form.validate_on_submit():
+        username = request.form.get('username')
+        password = request.form.get('password')
 
-    return render_template('login.html')
+
+
+
+
+        usernameDB = 'ryan'
+        passwordDB = 'password'
+
+
+
+
+
+        print(username)
+        print(password)
+        print("hello")
+        if username == usernameDB and password == passwordDB:
+            print('yes')
+            return redirect('index')
+        else:
+            return redirect('/')
+
+    return render_template('login.html', form=form)
 
 
 @app.route('/index', methods=methods)
