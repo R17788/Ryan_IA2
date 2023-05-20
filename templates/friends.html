@@ -1,6 +1,43 @@
 {% extends 'layout.html' %}
 {% block content %}
 
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">User ID</th>
+      <th scope="col">Name</th>
+        <th scope="col">User Type</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for key, value in data.items() %}
+
+    <tr class="hover" onclick="window.location='/index'">
+            <th scope="row">{{ loop.index }}</th>
+            <!-- user ID -->
+            <td>{{ value | first }}</td>
+              {% for key, value in value.items() %}
+
+                <td>{{ value[0] }}</td>
+
+                {% if value[1] == '1' %}
+                    <td>Public</td>
+                {% elif value[1] == '2' %}
+                    <td>DJ</td>
+                {% elif value[1] == '3' %}
+                    <td>Host</td>
+
+                {% endif %}
+
+            {% endfor %}
+    </tr>
+
+    {% endfor %}
+
+  </tbody>
+</table>
 
 
 

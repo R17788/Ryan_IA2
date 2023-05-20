@@ -13,7 +13,7 @@
     {{ form.hidden_tag()}}
     {{ form.csrf_token }}
     <nav>
-        <img src="static/images/logo.png" class="img-fluid pl-2" style="height: 100px;">
+        <img src="static/images/logo.png" class="img-fluid pl-2" style="height: 100px;"/>
         <span class="title align-middle pl-2"> CROWDS 4 DJ'S </span>
     </nav>
 </head>
@@ -29,16 +29,19 @@
             <h2 class="pt-2">Login:</h2>
                 <div class="row pl-4 pt-3 text-left">
                     <h3>Username:</h3>
-                    {{form.username(type=username)}}
+                    {{form.username(class='input')}}
                     {% for error in form.username.errors %}
                         <span class="error-message">{{ error }}</span>
                     {% endfor %}
                 </div>
 
+                {% if error %}
+                <p class=error><strong>Error:</strong> {{ error }}
+                {% endif %}
 
                 <div class="row pl-4 pt-3 pb-4 text-left">
                     <h3>Password:</h3>
-                    {{form.password(type=password)}}
+                    {{form.password(class='input')}}
                     {% for error in form.password.errors %}
                         <span class="error-message">{{ error }}</span>
                     {% endfor %}
@@ -55,7 +58,7 @@
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
             <form method="post">
-                <input type="submit" value="Submit">
+                <input type="submit" value="SUBMIT" class="p-4 pt-2">
             </form>
             </div>
             <div class="col-sm-2"></div>

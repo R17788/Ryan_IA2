@@ -2,20 +2,80 @@
 <html lang="en">
 
 
+
+
 <header>
-    <nav>
+    {% if session['level'] == "1" %}
+        <nav class="navbar-nav fixed-top navbar-collapse">
 
+            <div class="container-fluid">
+                <div >
+                    <a href="{{ url_for('index')}}"> <img src="static/images/logo.png" class="pl-1 img-fluid navbar-brand"
+                                                          style="height: 75px;"/> </a>
+                    <a href="{{ url_for('index') }}" class="col ml-2 align-middle nav-button">Home</a>
+                    <a href="{{ url_for('friends') }}" class="col ml-2 align-middle nav-button">Friends</a>
+                    <a href="{{ url_for('venues') }}" class="col ml-2 align-middle nav-button">Venues</a>
+                    <a href="{{ url_for('songs') }}" class="col ml-2 align-middle nav-button">Songs</a>
+                    <a href="{{ url_for('my_profile') }}" class="ml-2 align-middle nav-button">My Profile</a>
 
-        <div class="row align-middle pb-2 pt-1">
-            <div>
-                <a href="{{ url_for('index')}}"> <img src="static/images/logo.png" class="img-fluid col-md-2 pl-4 pr-0" style=""/> </a>
-                <a href="{{ url_for('index') }}" class="col p-3 ml-2 align-middle nav-button">Home</a>
-                <a href="{{ url_for('friends') }}" class="col p-3 ml-2 align-middle nav-button">Friends</a>
-                <a href="{{ url_for('venues') }}" class="col p-3 ml-2 align-middle nav-button">Venues</a>
-                <a href="{{ url_for('my_profile') }}" class="col p-3 ml-2 align-middle nav-button">My Profile</a>
+                    <span class="float-right" style="margin-top: 10px;">
+                        <a class="navbar-text">User: {{session['name']}}, Public</a>
+                        <a href="{{ url_for('logout') }}" class="nav-button">Logout</a>
+                    </span>
+
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    {% endif %}
+
+    {% if session['level'] == "2": %}
+        <nav class="navbar-nav fixed-top navbar-collapse">
+
+            <div class="container-fluid">
+                <div >
+                    <a href="{{ url_for('index')}}"> <img src="static/images/logo.png" class="pl-1 img-fluid navbar-brand"
+                                                          style="height: 75px;"/> </a>
+                    <a href="{{ url_for('index') }}" class="col ml-2 align-middle nav-button">Home</a>
+                    <a href="{{ url_for('friends') }}" class="col ml-2 align-middle nav-button">Friends</a>
+                    <a href="{{ url_for('venues') }}" class="col ml-2 align-middle nav-button">Venues</a>
+                    <a href="{{ url_for('songs') }}" class="col ml-2 align-middle nav-button">Songs</a>
+                    <a href="{{ url_for('my_profile') }}" class="ml-2 align-middle nav-button">My Profile</a>
+
+                    <span class="float-right" style="margin-top: 10px;">
+                        <a class="navbar-text">User: {{session['name']}}, DJ</a>
+                        <a href="{{ url_for('logout') }}" class="nav-button">Logout</a>
+                    </span>
+
+                </div>
+            </div>
+        </nav>
+    {% endif %}
+
+    {% if session['level'] == "3": %}
+        <nav class="navbar-nav fixed-top navbar-collapse">
+
+            <div class="container-fluid">
+                <div >
+                    <a href="{{ url_for('index')}}"> <img src="static/images/logo.png" class="pl-1 img-fluid navbar-brand"
+                                                          style="height: 75px;"/> </a>
+                    <a href="{{ url_for('index') }}" class="col ml-2 align-middle nav-button">Home</a>
+                    <a href="{{ url_for('friends') }}" class="col ml-2 align-middle nav-button">Friends</a>
+                    <a href="{{ url_for('venues') }}" class="col ml-2 align-middle nav-button">Venues</a>
+                    <a href="{{ url_for('songs') }}" class="col ml-2 align-middle nav-button">Songs</a>
+                    <a href="{{ url_for('my_profile') }}" class="ml-2 align-middle nav-button">My Profile</a>
+
+                    <span class="float-right" style="margin-top: 10px;">
+                        <a class="navbar-text">User: {{session['name']}}, Host</a>
+                        <a href="{{ url_for('logout') }}" class="nav-button">Logout</a>
+                    </span>
+
+                </div>
+            </div>
+        </nav>
+    {% endif %}
+
+
+
 </header>
 
 

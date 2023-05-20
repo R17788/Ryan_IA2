@@ -6,13 +6,25 @@ body{
     flex-direction: column;
 }
 
-input[type=text], input[type=password], input[type=studentID] {
+.input{
     width: 100%;
     padding: 7px;
     margin-right: 25px;
     border: none;
     color: #EAEBEE;
     background: #3D474E;
+}
+
+input[type=submit]{
+    background: #6B7F8A;
+    border: none;
+    color: #EAEBEE;
+}
+
+input[type=submit]:hover{
+    background: #3D474E;
+    border: none;
+    color: #EAEBEE;
 }
 
 footer{
@@ -28,6 +40,7 @@ nav{
     text-decoration: none;
     color: #EAEBEE;
     overflow: hidden;
+    width: 100%;
 }
 
 .nav-button{
@@ -35,13 +48,16 @@ nav{
     text-decoration: none;
     color: #EAEBEE;
     font-size: 25px;
+    height: 100%;
+    padding: 15px 10px;
+
 }
 
 .nav-button:hover{
     background-color: #3D474E;
     color: #EAEBEE;
     text-decoration: none;
-    border-radius: 50px;
+    height: 100px;
 }
 
 .background{
@@ -79,3 +95,10 @@ nav{
     text-decoration: none;
 }
 
+.navbar-text{
+     font-size: 25px;
+}
+
+.hover:hover{
+    background-color: #5C5537;
+}
