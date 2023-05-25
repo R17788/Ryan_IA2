@@ -2,7 +2,7 @@ import sqlite3
 import json
 import requests
 from flask import Flask, render_template, request, url_for, flash, redirect, abort, session
-from forms import LoginInformation
+from forms import LoginInformation, DJSearch, ArtistSearch
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'  # the secret key should be a long random string for safety
@@ -27,6 +27,13 @@ def get_from_db(sql):
     value = conn.execute(sql).fetchone()
     conn.close()
     value = strip(value)
+    return value
+
+
+def get_row_from_db(sql):
+    conn = get_db_connection()
+    value = conn.execute(sql).fetchall()
+    conn.close()
     return value
 
 
@@ -134,7 +141,8 @@ def login():
 
 @app.route('/index', methods=methods)
 def index():
-    if session['login'] == True:
+    if session['login']:
+        session['current_page'] = 'home'
         url_album = f"https://www.theaudiodb.com/api/v1/json/{apikey}/searchalbum.php?s=taylor_swift"
         url_top10alltime = f"https://theaudiodb.com/api/v1/json/{apikey}/mostloved.php?format=album"
         url_charts = f"https://theaudiodb.com/api/v1/json/{apikey}/trending.php?country=us&type=itunes&format=singles"
@@ -146,76 +154,162 @@ def index():
 
         return render_template('index.html', title='Home', data=mydata)
     else:
-        redirect('/')
+        return redirect('/')
     return render_template('layout.html')
 
 
-@app.route('/songs', methods=methods)
-def songs():
-    return render_template('songs.html', title="Songs")
-
-
-@app.route('/friends', methods=methods)
-def friends():
-    # sql = f"""SELECT f.friend_username
-    #         FROM friends AS f
-    #         INNER JOIN users AS u ON u.username = f.friend_username
-    #         WHERE f.username IS NOT NULL AND f.username = {session['username']}; """
-    #
-    # friend_username = get_from_db_all(sql)
-    # print(friend_username)
-
-    # cursor = get_db_connection().cursor()
-    #
-    # # Execute the SQL query
-
-    # cursor.execute(query)
-    #
-    # # Fetch the results
-    # results = cursor.fetchall()
-    #
-    # # Extract the usernames into a list
-    # usernames = [row[0] for row in results]
-    #
-    # # Print the usernames
-    # print(usernames)
-    # for username in usernames:
-    #     print(username)
-    #
-    # # Close the database connection
-    # get_db_connection().close()
-
-    query = f"""SELECT friend_username
-                     FROM friends
-                     WHERE friend_username IS NOT NULL AND username = {session['username']};"""
-
-    usernames = get_from_db_all(query)
-
-    data = {}
-    i = 1
-
-    for key, value in usernames.items():
-        name = get_from_db(f"SELECT first_name || ' ' || last_name FROM users WHERE username = {value}")
-        level = get_from_db(f"SELECT user_type FROM users WHERE username = {value}")
-        print(key, ":", value, ":", name)
-        info = {value: [name, level]}
-        print(info)
-        data[f"friend_{i}"] = info
-        i += 1
-
-
-    print(data)
-
-    return render_template('friends.html', title='Friends', data=data)
+@app.route('/search', methods=methods)
+def search():
+    if session['login']:
+        session['current_page'] = 'search'
+    else:
+        return redirect('/')
+    return render_template('search.html', title="Search")
 
 
 @app.route('/venues', methods=methods)
 def venues():
-    return render_template('venues.html', title='Venues')
+    if session['login']:
+        print("hi")
+    else:
+        return redirect('/')
+    return render_template('search/venues.html', title="Venues")
+
+
+@app.route('/dj', methods=methods)
+def dj():
+    form = DJSearch()
+    if session['login']:
+        sql = "SELECT * FROM users WHERE user_type = 2"
+        djs = get_row_from_db(sql)
+        print(djs)
+
+        if form.validate_on_submit():
+            search = request.form.get('search')
+            if search == "":
+                sql = "SELECT * FROM users WHERE user_type = 2"
+                djs = get_row_from_db(sql)
+            else:
+                if request.form.get('category') == 'first_name':
+                    search = search.lower()
+                    search = f"{search[0].upper()+search[1:len(search)]}"
+                    sql = f"SELECT * FROM users WHERE user_type = 2 AND first_name = '{search}'"
+                    djs = get_row_from_db(sql)
+
+                if request.form.get('category') == 'last_name':
+                    search = search.lower()
+                    search = f"{search[0].upper() + search[1:len(search)]}"
+                    sql = f"SELECT * FROM users WHERE user_type = 2 AND last_name = '{search}'"
+                    djs = get_row_from_db(sql)
+
+                if request.form.get('category') == 'email':
+                    sql = f"SELECT * FROM users WHERE user_type = 2 AND email_address = '{search}'"
+                    djs = get_row_from_db(sql)
+
+    else:
+        return redirect('/')
+    return render_template('search/dj.html', title="Venues", data=djs, form=form)
+
+
+@app.route('/artist', methods=methods)
+def artist():
+    form = ArtistSearch()
+    if session['login']:
+        print("hi")
+    else:
+        return redirect('/')
+    return render_template('search/artist.html', title="Venues", form=form)
+
+
+@app.route('/album', methods=methods)
+def album():
+    if session['login']:
+        print("hi")
+    else:
+        return redirect('/')
+    return render_template('search/album.html', title="Venues")
+
+
+@app.route('/songs', methods=methods)
+def songs():
+    if session['login']:
+        print("hi")
+    else:
+        return redirect('/')
+    return render_template('search/songs.html', title="Venues")
+
+
+@app.route('/friends', methods=methods)
+def friends():
+    if session['login']:
+        session['current_page'] = 'friends'
+        # sql = f"""SELECT f.friend_username
+        #         FROM friends AS f
+        #         INNER JOIN users AS u ON u.username = f.friend_username
+        #         WHERE f.username IS NOT NULL AND f.username = {session['username']}; """
+        #
+        # friend_username = get_from_db_all(sql)
+        # print(friend_username)
+
+        # cursor = get_db_connection().cursor()
+        #
+        # # Execute the SQL query
+
+        # cursor.execute(query)
+        #
+        # # Fetch the results
+        # results = cursor.fetchall()
+        #
+        # # Extract the usernames into a list
+        # usernames = [row[0] for row in results]
+        #
+        # # Print the usernames
+        # print(usernames)
+        # for username in usernames:
+        #     print(username)
+        #
+        # # Close the database connection
+        # get_db_connection().close()
+
+        query = f"""SELECT friend_username
+                         FROM friends
+                         WHERE friend_username IS NOT NULL AND username = {session['username']};"""
+
+        usernames = get_from_db_all(query)
+
+        data = {}
+        i = 1
+
+        for key, value in usernames.items():
+            name = get_from_db(f"SELECT first_name || ' ' || last_name FROM users WHERE username = {value}")
+            level = get_from_db(f"SELECT user_type FROM users WHERE username = {value}")
+            print(key, ":", value, ":", name)
+            info = {value: [name, level]}
+            print(info)
+            data[f"friend_{i}"] = info
+            i += 1
+
+        print(data)
+    else:
+        return redirect('/')
+    return render_template('friends.html', title='Friends', data=data)
+
+
+@app.route('/events', methods=methods)
+def events():
+    if session['login']:
+        session['current_page'] = 'events'
+    else:
+        return redirect('/')
+    return render_template('events.html', title='Events')
 
 
 @app.route('/my_profile', methods=methods)
 def my_profile():
+    if session['login']:
+        session['current_page'] = 'my_profile'
+    else:
+        return redirect('/')
     return render_template('my_profile.html', title='My Profile')
 
 
@@ -228,6 +322,8 @@ def logout():
     print(session['level'])
     session['login'] = False
     print(session['login'])
+    session['current_page'] = None
+    print(session['current_page'])
     return redirect(url_for('login'))
 
 

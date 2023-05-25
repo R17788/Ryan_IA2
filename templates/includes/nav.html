@@ -1,51 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-
-
 <header>
     {% if session['level'] == "1" %}
         <nav class="navbar-nav fixed-top navbar-collapse">
-
             <div class="container-fluid">
-                <div >
-                    <a href="{{ url_for('index')}}"> <img src="static/images/logo.png" class="pl-1 img-fluid navbar-brand"
-                                                          style="height: 75px;"/> </a>
-                    <a href="{{ url_for('index') }}" class="col ml-2 align-middle nav-button">Home</a>
-                    <a href="{{ url_for('friends') }}" class="col ml-2 align-middle nav-button">Friends</a>
-                    <a href="{{ url_for('venues') }}" class="col ml-2 align-middle nav-button">Venues</a>
-                    <a href="{{ url_for('songs') }}" class="col ml-2 align-middle nav-button">Songs</a>
-                    <a href="{{ url_for('my_profile') }}" class="ml-2 align-middle nav-button">My Profile</a>
+                <div>
+                    <a href="{{ url_for('index') }}">
+                        <img src="static/images/logo.png" class="pl-1 img-fluid navbar-brand img" style="height: 75px;"/>
+                    </a>
+                    <a href="{{ url_for('index') }}" class="col ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'home' %}active{% endif %}">
+                        Home
+                    </a>
+                    <a href="{{ url_for('friends') }}" class="col ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'friends' %}active{% endif %}">
+                        Friends
+                    </a>
+                    <a href="{{ url_for('search') }}" class="col ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'search' %}active{% endif %}">
+                        Search
+                    </a>
+                    <a href="{{ url_for('events') }}" class="ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'events' %}active{% endif %}">
+                        Events
+                    </a>
+                    <a href="{{ url_for('my_profile') }}" class="ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'my_profile' %}active{% endif %}">
+                        My Profile
+                    </a>
+
 
                     <span class="float-right" style="margin-top: 10px;">
-                        <a class="navbar-text">User: {{session['name']}}, Public</a>
-                        <a href="{{ url_for('logout') }}" class="nav-button">Logout</a>
+                        <a class="navbar-text">User: {{ session['name'] }}, Public</a>
+                        <a href="{{ url_for('logout') }}" class="nav-button logout">Logout</a>
                     </span>
-
                 </div>
             </div>
         </nav>
+
     {% endif %}
 
     {% if session['level'] == "2": %}
         <nav class="navbar-nav fixed-top navbar-collapse">
-
             <div class="container-fluid">
-                <div >
-                    <a href="{{ url_for('index')}}"> <img src="static/images/logo.png" class="pl-1 img-fluid navbar-brand"
-                                                          style="height: 75px;"/> </a>
-                    <a href="{{ url_for('index') }}" class="col ml-2 align-middle nav-button">Home</a>
-                    <a href="{{ url_for('friends') }}" class="col ml-2 align-middle nav-button">Friends</a>
-                    <a href="{{ url_for('venues') }}" class="col ml-2 align-middle nav-button">Venues</a>
-                    <a href="{{ url_for('songs') }}" class="col ml-2 align-middle nav-button">Songs</a>
-                    <a href="{{ url_for('my_profile') }}" class="ml-2 align-middle nav-button">My Profile</a>
+                <div>
+                    <a href="{{ url_for('index') }}">
+                        <img src="static/images/logo.png" class="pl-1 img-fluid navbar-brand img" style="height: 75px;"/>
+                    </a>
+                    <a href="{{ url_for('index') }}" class="col ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'home' %}active{% endif %}">
+                        Home
+                    </a>
+                    <a href="{{ url_for('friends') }}" class="col ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'friends' %}active{% endif %}">
+                        Friends
+                    </a>
+                    <a href="{{ url_for('search') }}" class="col ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'search' %}active{% endif %}">
+                        Search
+                    </a>
+                    <a href="{{ url_for('events') }}" class="ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'events' %}active{% endif %}">
+                        Events
+                    </a>
+                    <a href="{{ url_for('my_profile') }}" class="ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'my_profile' %}active{% endif %}">
+                        My Profile
+                    </a>
 
                     <span class="float-right" style="margin-top: 10px;">
-                        <a class="navbar-text">User: {{session['name']}}, DJ</a>
+                        <a class="navbar-text">User: {{ session['name'] }}, DJ</a>
                         <a href="{{ url_for('logout') }}" class="nav-button">Logout</a>
                     </span>
-
                 </div>
             </div>
         </nav>
@@ -53,22 +70,31 @@
 
     {% if session['level'] == "3": %}
         <nav class="navbar-nav fixed-top navbar-collapse">
-
             <div class="container-fluid">
-                <div >
-                    <a href="{{ url_for('index')}}"> <img src="static/images/logo.png" class="pl-1 img-fluid navbar-brand"
-                                                          style="height: 75px;"/> </a>
-                    <a href="{{ url_for('index') }}" class="col ml-2 align-middle nav-button">Home</a>
-                    <a href="{{ url_for('friends') }}" class="col ml-2 align-middle nav-button">Friends</a>
-                    <a href="{{ url_for('venues') }}" class="col ml-2 align-middle nav-button">Venues</a>
-                    <a href="{{ url_for('songs') }}" class="col ml-2 align-middle nav-button">Songs</a>
-                    <a href="{{ url_for('my_profile') }}" class="ml-2 align-middle nav-button">My Profile</a>
+                <div>
+                    <a href="{{ url_for('index') }}">
+                        <img src="static/images/logo.png" class="pl-1 img-fluid navbar-brand img" style="height: 75px;"/>
+                    </a>
+                    <a href="{{ url_for('index') }}" class="col ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'home' %}active{% endif %}">
+                        Home
+                    </a>
+                    <a href="{{ url_for('friends') }}" class="col ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'friends' %}active{% endif %}">
+                        Friends
+                    </a>
+                    <a href="{{ url_for('search') }}" class="col ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'search' %}active{% endif %}">
+                        Search
+                    </a>
+                    <a href="{{ url_for('events') }}" class="ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'events' %}active{% endif %}">
+                        Events
+                    </a>
+                    <a href="{{ url_for('my_profile') }}" class="ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'my_profile' %}active{% endif %}">
+                        My Profile
+                    </a>
 
                     <span class="float-right" style="margin-top: 10px;">
-                        <a class="navbar-text">User: {{session['name']}}, Host</a>
+                        <a class="navbar-text">User: {{ session['name'] }}, Host</a>
                         <a href="{{ url_for('logout') }}" class="nav-button">Logout</a>
                     </span>
-
                 </div>
             </div>
         </nav>

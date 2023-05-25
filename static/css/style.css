@@ -102,3 +102,131 @@ nav{
 .hover:hover{
     background-color: #5C5537;
 }
+
+.active{
+    background-color: #5C5537;
+}
+
+.body{
+    padding-top: 75px;
+}
+
+.search-button{
+    background: #6B7F8A;
+    padding: 30px;
+    border-color: #181B21;
+    margin: auto;
+    text-align: center;
+    font-size: 25px;
+}
+
+.search-button:hover{
+    background: #3D474E;
+}
+
+.middle{
+    margin-top: 270px;
+}
+
+@media screen and (max-width :1200px) {
+
+    .nav-button{
+        font-size: 20px;
+        padding: 15px 5px;
+
+    }
+
+    .navbar-text {
+        font-size: 20px;
+    }
+
+    .logout{
+
+    }
+
+}
+
+@media screen and (max-width :930px) {
+    .nav-button{
+        font-size: 17px;
+        padding: 15px 0px;
+
+    }
+
+    .navbar-text {
+        font-size: 17px;
+    }
+}
+
+@media screen and (max-width :800px) {
+
+    .nav-button{
+        font-size: 16px;
+        padding: 15px;
+        margin: 0px;
+        font-weight: bold;
+    }
+
+    .navbar-text {
+        font-size: 0px;
+        margin-top: 25px;
+    }
+
+    .logout{
+        font-size: 16px;
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width :740px) {
+
+    .img{
+        margin-right: 0px;
+        padding-right: 0px;
+    }
+
+    .nav-button{
+        font-size: 13px;
+        padding: 15px 0px;
+        margin-left: 0px;
+
+    }
+
+    .navbar-text {
+        font-size: 0px;
+
+    }
+}
+
+@media screen and (max-width :540px) {
+
+    .body{
+        padding-top:125px;
+    }
+
+
+}
+
+@media screen and (max-width :312px) {
+
+    .body{
+        padding-top:150px;
+    }
+
+
+}
+
+.dropdown{
+    background-size: 10px;
+    font-size: 20px;
+}
+
+a.return:link, a.return:visited{
+    color: white;
+    text-decoration: none;
+}
+
+a.return:hover{
+    color: white;
+    text-decoration: underline;
+}
