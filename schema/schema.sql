@@ -126,4 +126,27 @@ INSERT INTO friends (username, friend_username)
 INSERT INTO friends (username, friend_username)
     VALUES (?, ?), ('62345', '52345');
 
-----------------------------------------------------  TABLE --------------------------------------------------
+----------------------------------------------------  EVENTS TABLE --------------------------------------------------
+DROP TABLE IF EXISTS events;
+
+CREATE TABLE "events" (
+	"event_id"	INTEGER,
+	"event_name"	TEXT,
+	"dj_id"	TEXT,
+	"host_id"	TEXT,
+	"venue_id"	INTEGER,
+	"date_start"	TEXT,
+	"date_end"	TEXT
+);
+
+INSERT OR IGNORE INTO events (event_id, event_name, dj_id, host_id, venue_id, date_start, date_end)
+    VALUES (?, ?, ?, ?, ?, ?, ?), (1, 'SPS Fest', '22345', '32345', 1, '30/6/2023 3:00pm', '30/6/2023 6:00pm');
+
+INSERT OR IGNORE INTO events (event_id, event_name, dj_id, host_id, venue_id, date_start, date_end)
+    VALUES (?, ?, ?, ?, ?, ?, ?), (2, 'Music in the Dark', '22345', '32345', 4, '3/7/2023 3:00pm', '3/7/2023 8:00pm');
+
+INSERT OR IGNORE INTO events (event_id, event_name, dj_id, host_id, venue_id, date_start, date_end)
+    VALUES (?, ?, ?, ?, ?, ?, ?), (3, 'Pink Day', '42345', '62345', 8, '7/9/2023 9:00am', '7/9/2023 2:00pm');
+
+INSERT OR IGNORE INTO events (event_id, event_name, dj_id, host_id, venue_id, date_start, date_end)
+    VALUES (?, ?, ?, ?, ?, ?, ?), (4, 'SPS Fate', '42345', '62345', 5, '4/9/2023', '9/9/2023');

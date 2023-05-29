@@ -2,7 +2,7 @@ import sqlite3
 import json
 import requests
 from flask import Flask, render_template, request, url_for, flash, redirect, abort, session
-from forms import LoginInformation, DJSearch, ArtistSearch
+from forms import LoginInformation, DJSearch, ArtistSearch, DjEventSearch
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'  # the secret key should be a long random string for safety
@@ -126,7 +126,12 @@ def login():
                 print('yes')
                 flash("You were successfully logged in")
 
-                return redirect('index')
+                if session['level'] == '1':
+                    return redirect('index')
+                elif session['level'] == '2':
+                    return redirect('dj_home')
+
+
 
             else:
                 flash("Invalid username or password")
@@ -134,7 +139,7 @@ def login():
                 return redirect('/')
 
         else:
-            redirect('/')
+            return redirect('/')
 
     return render_template('login.html', form=form, error=error)
 
@@ -214,11 +219,34 @@ def dj():
 @app.route('/artist', methods=methods)
 def artist():
     form = ArtistSearch()
+    data = {}
+    search = ""
+    session['not_artist'] = False
     if session['login']:
-        print("hi")
+        if form.validate_on_submit():
+            search = request.form.get('search')
+            print(search)
+            if search == "":
+                data = {}
+            else:
+                if request.form.get('category') == "details":
+                    url = f"https://www.theaudiodb.com/api/v1/json/{apikey}/search.php?s={search}"
+                    req = (requests.get(url)).text
+                    mydata = json.loads(req)
+                    data = mydata['artists']
+                    print(data)
+                    if data is None:
+                        data = {}
+                        session['not_artist'] = True
+                if request.form.get('category') == "album":
+                    url_album = f"https://www.theaudiodb.com/api/v1/json/{apikey}/searchalbum.php?s={search}"
+                    req = (requests.get(url_album)).text
+                    mydata = json.loads(req)
+                    data = mydata['album']
+
     else:
         return redirect('/')
-    return render_template('search/artist.html', title="Venues", form=form)
+    return render_template('search/artist.html', title="Venues", form=form, data=data, search=search)
 
 
 @app.route('/album', methods=methods)
@@ -311,6 +339,52 @@ def my_profile():
     else:
         return redirect('/')
     return render_template('my_profile.html', title='My Profile')
+
+
+@app.route('/dj_home', methods=methods)
+def dj_home():
+    info = ""
+    if session['login'] is True and session['level'] == '2':
+        session['current_page'] = 'dj_home'
+        sql = "SELECT * FROM events WHERE event_id IS NOT Null"
+        info = get_row_from_db(sql)
+        print(info)
+    else:
+        return redirect('/')
+    return render_template('dj/index.html', title="Home", info=info)
+
+
+@app.route('/event_history', methods=methods)
+def event_history():
+    form = DjEventSearch()
+    info = {}
+    if session['login'] is True and session['level'] == '2':
+        session['current_page'] = 'event_history'
+        if form.validate_on_submit():
+            search = request.form.get('search')
+            # print(search)
+            if search == "":
+                sql = "SELECT * FROM events WHERE event_id IS NOT null"
+                info = get_row_from_db(sql)
+            else:
+                if request.form.get('category') == 'ID':
+                    sql = f"SELECT * FROM events WHERE event_id IS {search}"
+                    info = get_row_from_db(sql)
+                    print(info)
+
+                elif request.form.get('category') == 'name':
+                    sql = f"SELECT * FROM events WHERE event_name IS {search}"
+                    info = get_row_from_db(sql)
+                    print(info)
+
+                elif request.form.get('category') == 'venue':
+                    sql = f"SELECT * FROM events WHERE venue_id IS {search}"
+                    info = get_row_from_db(sql)
+                    print(info)
+
+    else:
+        return redirect('/')
+    return render_template('dj/event_history.html', title='Event History', form=form, data=info)
 
 
 @app.route('/logout', methods=methods)

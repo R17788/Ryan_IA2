@@ -6,10 +6,95 @@
     {{ form.hidden_tag()}}
     {{ form.csrf_token }}
 
-    <h1 style='padding-top: 10px;' >Search for an Artist: {{form.search}}</h1>
+    <h1 style='padding-top: 10px;' >Search for an Artist: {{form.search}}
+        {{form.category(class="dropdown align-middle")}}</h1>
     <div class="mb-2">
         <a class="return" href="{{ url_for('search') }}">Back to Search</a>
     </div>
+
+    {% if session['not_artist'] == True and search != "Packlo" and search != "packlo"%}
+    <h2> Could Not Find That Arist - Please Search For A Different One </h2>
+    <div class="mb-2">
+        <a class="return" href="{{ url_for('search') }}">or return to the search selection page</a>
+    </div>
+    {% endif %}
+
+    {% if search == "Packlo" or search == "packlo": %}
+    <div class="row">
+        <div class="col">
+            <img src="static/images/packlo.png" class="packlo-banner">
+        </div>
+        <div class="col">
+            <img src="static/images/packlo_headshot.png" class="artist-thumb">
+        </div>
+    </div>
+
+    <div class="row">
+        <h4>Style: Rap</h4>
+    </div>
+    <div class="row">
+        <h4>Genre: Alternate / Hip-Hop</h4>
+    </div>
+    <div class="row">
+        <h4>Link to Website: None</h4>
+    </div>
+    <div class="row mb-5">
+        <h4>Description:</h4>
+        Packlo, a prodigious 17-year-old rapper, emerges as a force to be reckoned with in the realm of hip-hop, defying conventional expectations and carving a unique path towards artistic success. Born with an undeniable gift for lyricism and an unyielding passion for music, Packlo's journey took an unexpected turn when he made the audacious decision to leave school halfway through Year 12, forging ahead on an uncharted trajectory to pursue his artistic aspirations.
+
+In the vast landscape of contemporary rap, Packlo stands out as a captivating wordsmith, weaving intricate narratives that resonate with listeners of all backgrounds. His introspective verses delve into the depths of his personal experiences, delivering raw emotions and thought-provoking perspectives with a maturity beyond his years. Packlo's lyrical prowess serves as a powerful tool, allowing him to convey the triumphs, struggles, and dreams of his generation in a way that captivates and inspires.
+
+While Packlo's unconventional choice to depart from formal education raised eyebrows, it embodies his unwavering commitment to his craft. Embracing the ethos of self-determination and artistic independence, he channels his energy into honing his skills and exploring uncharted creative territories. With an insatiable hunger for knowledge and growth, Packlo immerses himself in the rich tapestry of musical influences, merging classic hip-hop elements with contemporary beats to forge a distinct sonic signature.
+
+Beyond his lyrical finesse and musical dexterity, Packlo exudes an infectious charisma that commands attention. His magnetic stage presence, coupled with an unwavering dedication to his craft, leaves audiences transfixed and yearning for more. Whether he's performing on intimate stages or commanding vast arenas, Packlo's energy is palpable, creating an electric connection between himself and his fans, fostering an environment where music becomes a conduit for shared experiences and unity.
+
+Packlo's unwavering commitment to artistic authenticity serves as a guiding principle, allowing him to defy societal norms and break free from conventional molds. Embracing his youth as an asset rather than a limitation, he fearlessly embraces his vulnerabilities and personal growth, becoming a beacon of inspiration for young artists searching for their own creative paths.
+
+As Packlo's journey unfolds, it is clear that he is an artist unafraid to take risks and challenge the status quo. With every verse, performance, and artistic endeavor, he continues to push boundaries, paving the way for a new wave of rap music that transcends traditional confines. Packlo's story serves as a testament to the power of following one's passion, reminding us all that age is no barrier to artistic greatness and that true artistry knows no bounds.
+    </div>
+
+    {% else: %}
+
+        <div class="row">
+            <div class="col">
+        {% for item in data %}
+        <img src="{{ item['strArtistLogo'] }}" alt="The Logo of the artist you searched for">
+        {% endfor %}
+            </div>
+            <div class="col">
+                {% for item in data %}
+                <img src="{{ item['strArtistThumb'] }}" alt="The Logo of the artist you searched for" class="artist-thumb">
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            {% for item in data %}
+            <h4>Style: {{item['strStyle']}}</h4> <br>
+            {% endfor %}
+        </div>
+        <div class="row">
+            {% for item in data %}
+            <h4>Genre: {{item['strGenre']}}</h4><br>
+            {% endfor %}
+        </div>
+        <div class="row">
+            {% for item in data %}
+            <a href="www.{{item['strWebsite']}}" style=""><h4>Link to Webstie: {{ item['strWebsite'] }}</h4></a>
+            {% endfor %}
+        </div>
+        </form>
+        <div class="row mb-5">
+            {% for item in data %}
+            <h4>Description:</h4>
+            {{ item['strBiographyEN']}}<br>
+            {% endfor %}
+        </div>
+
+        {% endif %}
+
+<!--    {% for item in data %}-->
+<!--        {{ item['strAlbum'] }}-->
+<!--    {% endfor %}-->
 
 
 

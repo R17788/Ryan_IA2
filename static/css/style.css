@@ -230,3 +230,12 @@ a.return:hover{
     color: white;
     text-decoration: underline;
 }
+
+.artist-thumb{
+    width: 250px;
+}
+
+.packlo-banner{
+    height: 200px;
+}
+

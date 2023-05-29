@@ -12,7 +12,16 @@ class LoginInformation(FlaskForm):
 class DJSearch(FlaskForm):
     search = StringField('Search for DJ:')
     category = SelectField('category',
-                choices=[("first_name", "First Name"), ("last_name", "Last Name"), ("email", "Email")])
+                           choices=[("first_name", "First Name"), ("last_name", "Last Name"), ("email", "Email")])
+
 
 class ArtistSearch(FlaskForm):
-    search = StringField('')
+    search = StringField('search')
+    category = SelectField('category',
+                           choices=[("details", "All Details"), ("albums", "Albums")])
+
+
+class DjEventSearch(FlaskForm):
+    search = StringField('search')
+    category = SelectField('category',
+                           choices=[("ID", "Event ID"), ("name", "Event Name"), ("venue", "Event Location")])

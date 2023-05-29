@@ -43,20 +43,17 @@
                     <a href="{{ url_for('index') }}">
                         <img src="static/images/logo.png" class="pl-1 img-fluid navbar-brand img" style="height: 75px;"/>
                     </a>
-                    <a href="{{ url_for('index') }}" class="col ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'home' %}active{% endif %}">
+                    <a href="{{ url_for('dj_home') }}" class="col ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'dj_home' %}active{% endif %}">
                         Home
                     </a>
                     <a href="{{ url_for('friends') }}" class="col ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'friends' %}active{% endif %}">
-                        Friends
+                        Song History
                     </a>
                     <a href="{{ url_for('search') }}" class="col ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'search' %}active{% endif %}">
-                        Search
+                        Location Information
                     </a>
-                    <a href="{{ url_for('events') }}" class="ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'events' %}active{% endif %}">
-                        Events
-                    </a>
-                    <a href="{{ url_for('my_profile') }}" class="ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'my_profile' %}active{% endif %}">
-                        My Profile
+                    <a href="{{ url_for('event_history') }}" class="ml-2 pl-3 align-middle nav-button {% if session['current_page'] == 'event_history' %}active{% endif %}">
+                        Event History
                     </a>
 
                     <span class="float-right" style="margin-top: 10px;">

@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<h1>Current Events:</h1>
+
+<table class="table table-dark">
+  <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Event ID</th>
+        <th scope="col">Event Name</th>
+        <th scope="col">Dj ID</th>
+        <th scope="col">Host ID</th>
+        <th scope="col">Venue Location</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  {% for item in info %}
+
+    <tr class="hover" onclick="window.location='/index'">
+        <th scope="row">{{ loop.index }}</th>
+        <td>{{item[0]}}</td>
+        <td>{{item[1]}}</td>
+        <td>{{item[2]}}</td>
+        <td>{{item[3]}}</td>
+        <td>{{item[4]}}</td>
+        <td>{{item[5]}}</td>
+        <td>{{item[6]}}</td>
+
+    </tr>
+
+    {% endfor %}
+
+  </tbody>
+</table>
+
+
+{% endblock %}
